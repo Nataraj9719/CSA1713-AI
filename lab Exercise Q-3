@@ -1,0 +1,94 @@
+from collections import deque
+from math import gcd
+
+
+def water_jug(jug1, jug2, target):
+
+    # Input validation
+    if jug1 <= 0 or jug2 <= 0:
+        print("Jug capacities must be greater than 0.")
+        return
+
+    if target < 0 or target > max(jug1, jug2):
+        print("Target must be between 0 and the capacity of the largest jug.")
+        return
+
+    # Mathematical possibility check
+    if target % gcd(jug1, jug2) != 0:
+        print("No solution exists for the given jugs and target.")
+        return
+
+    # BFS queue
+    queue = deque()
+    queue.append((0, 0, []))
+
+    # Visited states
+    visited = set()
+    visited.add((0, 0))
+
+    while queue:
+
+        a, b, path = queue.popleft()
+
+        # Target reached
+        if a == target or b == target:
+            print("\nSolution:")
+            print("Start: (0, 0)")
+
+            for step in path:
+                print(step)
+
+            print(f"Final State: ({a}, {b})")
+            return
+
+        # Generate all possible states
+        possible_states = [
+
+            # Fill Jug 1
+            (jug1, b, f"Fill Jug 1 -> ({jug1}, {b})"),
+
+            # Fill Jug 2
+            (a, jug2, f"Fill Jug 2 -> ({a}, {jug2})"),
+
+            # Empty Jug 1
+            (0, b, f"Empty Jug 1 -> (0, {b})"),
+
+            # Empty Jug 2
+            (a, 0, f"Empty Jug 2 -> ({a}, 0)"),
+
+            # Pour Jug 1 -> Jug 2
+            (
+                a - min(a, jug2 - b),
+                b + min(a, jug2 - b),
+                "Pour Jug 1 -> Jug 2"
+            ),
+
+            # Pour Jug 2 -> Jug 1
+            (
+                a + min(b, jug1 - a),
+                b - min(b, jug1 - a),
+                "Pour Jug 2 -> Jug 1"
+            )
+        ]
+
+        # Add new states to queue
+        for new_a, new_b, action in possible_states:
+
+            if (new_a, new_b) not in visited:
+                visited.add((new_a, new_b))
+                queue.append(
+                    (new_a, new_b, path + [action])
+                )
+
+    print("No solution exists.")
+
+
+# -----------------------------
+# Main Program
+# -----------------------------
+
+jug1 = int(input("Enter capacity of Jug 1: "))
+jug2 = int(input("Enter capacity of Jug 2: "))
+target = int(input("Enter target amount: "))
+
+water_jug(jug1, jug2, target)
