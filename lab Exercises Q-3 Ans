@@ -1,0 +1,11 @@
+Enter capacity of Jug 1: 4
+Enter capacity of Jug 2: 3
+Enter target amount: 2
+
+Solution:
+Start: (0, 0)
+Fill Jug 2 -> (0, 3)
+Pour Jug 2 -> Jug 1
+Fill Jug 2 -> (3, 3)
+Pour Jug 2 -> Jug 1
+Final State: (4, 2)
