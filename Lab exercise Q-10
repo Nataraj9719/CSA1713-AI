@@ -1,0 +1,70 @@
+
+import heapq
+
+def astar(graph, heuristic, start, goal):
+    # Priority queue: (f_score, node)
+    open_list = [(heuristic[start], start)]
+
+    # Store the actual cost from start
+    g_score = {start: 0}
+
+    # Store the parent of each node
+    parent = {start: None}
+
+    while open_list:
+        f_score, current = heapq.heappop(open_list)
+
+        if current == goal:
+            path = []
+            while current is not None:
+                path.append(current)
+                current = parent[current]
+
+            path.reverse()
+            return path, g_score[goal]
+
+        for neighbor, cost in graph[current]:
+            new_cost = g_score[current] + cost
+
+            if neighbor not in g_score or new_cost < g_score[neighbor]:
+                g_score[neighbor] = new_cost
+                parent[neighbor] = current
+
+                f = new_cost + heuristic[neighbor]
+                heapq.heappush(open_list, (f, neighbor))
+
+    return None, float("inf")
+
+
+# Graph: node -> [(neighbor, cost)]
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('D', 3), ('E', 1)],
+    'C': [('F', 5)],
+    'D': [('G', 3)],
+    'E': [('G', 5)],
+    'F': [('G', 2)],
+    'G': []
+}
+
+# Estimated distance from each node to goal G
+heuristic = {
+    'A': 7,
+    'B': 6,
+    'C': 5,
+    'D': 3,
+    'E': 4,
+    'F': 2,
+    'G': 0
+}
+
+start = 'A'
+goal = 'G'
+
+path, cost = astar(graph, heuristic, start, goal)
+
+if path:
+    print("Shortest path:", " -> ".join(path))
+    print("Total cost:", cost)
+else:
+    print("No path found")
