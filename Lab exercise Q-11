@@ -1,0 +1,47 @@
+
+# Map Coloring using CSP
+
+def is_valid(state, region, color, graph):
+    for neighbor in graph[region]:
+        if neighbor in state and state[neighbor] == color:
+            return False
+    return True
+
+
+def map_coloring(graph, colors, state={}):
+    if len(state) == len(graph):
+        return state
+
+    region = next(r for r in graph if r not in state)
+
+    for color in colors:
+        if is_valid(state, region, color, graph):
+            state[region] = color
+
+            result = map_coloring(graph, colors, state)
+            if result:
+                return result
+
+            del state[region]
+
+    return None
+
+
+# Map represented as a graph
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+colors = ['Red', 'Green', 'Blue']
+
+solution = map_coloring(graph, colors)
+
+if solution:
+    print("Map Coloring Solution:")
+    for region, color in solution.items():
+        print(region, ":", color)
+else:
+    print("No solution exists.")
