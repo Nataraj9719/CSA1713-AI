@@ -1,0 +1,19 @@
+# Decision Tree implementation without sklearn
+
+def decision_tree(weather):
+    if weather == "Sunny":
+        return "No"
+    elif weather == "Rainy":
+        return "No"
+    elif weather == "Cloudy":
+        return "Yes"
+    else:
+        return "Invalid input"
+
+# Get input from user
+weather = input("Enter weather (Sunny/Rainy/Cloudy): ")
+
+# Predict the result
+result = decision_tree(weather)
+
+print("Decision:", result)
