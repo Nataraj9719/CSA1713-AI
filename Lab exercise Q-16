@@ -1,0 +1,30 @@
+import math
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+# Input values
+inputs = [1, 0]
+
+# Weights and biases
+weights_hidden = [[0.5, 0.4], [0.3, 0.7]]
+bias_hidden = [0.1, 0.2]
+
+weights_output = [0.6, 0.8]
+bias_output = 0.1
+
+# Hidden layer calculation
+hidden = []
+for i in range(2):
+    total = sum(inputs[j] * weights_hidden[i][j]
+                for j in range(2)) + bias_hidden[i]
+    hidden.append(sigmoid(total))
+
+# Output layer calculation
+total = sum(hidden[i] * weights_output[i]
+            for i in range(2)) + bias_output
+output = sigmoid(total)
+
+print("Input Layer:", inputs)
+print("Hidden Layer:", hidden)
+print("Output Layer:", output)
