@@ -1,0 +1,11 @@
+
+% Database containing Name and Date of Birth
+
+person('Nataraj', date(15, 5, 2006)).
+person('Arun', date(10, 8, 2005)).
+person('Kumar', date(20, 3, 2006)).
+person('Ravi', date(12, 12, 2004)).
+
+% Query to display DOB
+show_dob(Name, DOB) :-
+    person(Name, DOB).
