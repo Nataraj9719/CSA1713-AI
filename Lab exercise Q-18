@@ -1,0 +1,32 @@
+
+% Student details
+student(101, 'Arun').
+student(102, 'Bala').
+student(103, 'Kumar').
+
+% Teacher details
+teacher(t1, 'Ravi').
+teacher(t2, 'Priya').
+
+% Subject details
+subject(s1, 'Artificial Intelligence').
+subject(s2, 'Python').
+subject(s3, 'Prolog').
+
+% Subject code details
+sub_code(s1, 'AI101').
+sub_code(s2, 'PY102').
+sub_code(s3, 'PR103').
+
+% Display student details
+display_student(X, Name) :-
+    student(X, Name).
+
+% Display teacher details
+display_teacher(X, Name) :-
+    teacher(X, Name).
+
+% Display subject and code
+display_subject(X, Name, Code) :-
+    subject(X, Name),
+    sub_code(X, Code).
