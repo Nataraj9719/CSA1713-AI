@@ -1,0 +1,28 @@
+
+% Monkey Banana Problem
+
+% Initial state
+initial_state(at(door), at(window), on_floor).
+
+% Monkey moves to the box
+move_to_box(at(door), at(window), at(window)).
+
+% Monkey pushes the box below banana
+push_box(at(window), at(middle), at(middle)).
+
+% Monkey climbs the box
+climb(on_floor, on_box).
+
+% Monkey grabs the banana
+grab(on_box, has_banana).
+
+% Goal checking
+solve :-
+    initial_state(Monkey, Box, on_floor),
+    move_to_box(Monkey, Box, NewMonkey),
+    push_box(NewMonkey, at(middle), NewBox),
+    climb(on_floor, Position),
+    grab(Position, Result),
+    write('Monkey gets the banana!'),
+    nl,
+    write(Result).
