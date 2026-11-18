@@ -1,0 +1,42 @@
+
+% Best First Search Algorithm
+
+% Graph connections
+edge(a, b).
+edge(a, c).
+edge(b, d).
+edge(b, e).
+edge(c, f).
+edge(c, g).
+
+% Heuristic values
+h(a, 6).
+h(b, 4).
+h(c, 2).
+h(d, 5).
+h(e, 3).
+h(f, 1).
+h(g, 0).
+
+% Best First Search
+best_first(Start, Goal) :-
+    search([Start], Goal, [Start]).
+
+search([Goal|_], Goal, Path) :-
+    write('Goal Found: '),
+    write(Path).
+
+search([Node|Rest], Goal, Path) :-
+    findall(H-Next,
+        (edge(Node, Next),
+         \+ member(Next, Path),
+         h(Next, H)),
+        Children),
+    append(Rest, Children, NewList),
+    sort(NewList, Sorted),
+    extract_nodes(Sorted, Nodes),
+    search(Nodes, Goal, Path).
+
+extract_nodes([], []).
+extract_nodes([_-N|T], [N|R]) :-
+    extract_nodes(T, R).
