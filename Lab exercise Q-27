@@ -1,0 +1,37 @@
+
+% Medical Diagnosis Program
+
+% Facts and Rules
+
+disease(fever) :-
+    symptom(high_temperature),
+    symptom(headache).
+
+disease(cold) :-
+    symptom(sneezing),
+    symptom(runny_nose).
+
+disease(flu) :-
+    symptom(fever),
+    symptom(cough),
+    symptom(body_pain).
+
+disease(malaria) :-
+    symptom(fever),
+    symptom(chills),
+    symptom(sweating).
+
+% Sample Symptoms
+symptom(high_temperature).
+symptom(headache).
+symptom(cough).
+symptom(body_pain).
+
+% Diagnosis
+diagnose :-
+    disease(X),
+    write('Possible Disease: '),
+    write(X), nl,
+    fail.
+
+diagnose.
