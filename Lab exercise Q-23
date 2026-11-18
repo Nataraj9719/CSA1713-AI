@@ -1,0 +1,16 @@
+
+% Diet suggestion based on disease
+
+diet(diabetes, 'Low sugar and high fibre foods').
+diet(blood_pressure, 'Low salt and low fat foods').
+diet(obesity, 'Low calorie foods and vegetables').
+diet(heart_disease, 'Low fat and low cholesterol foods').
+diet(anemia, 'Iron rich foods like spinach and dates').
+
+% Query to suggest diet
+suggest_diet(Disease, Diet) :-
+    diet(Disease, Diet).
+
+% If disease is not found
+suggest_diet(Disease, 'No diet information available') :-
+    \+ diet(Disease, _).
