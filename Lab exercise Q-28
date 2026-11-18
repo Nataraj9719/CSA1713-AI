@@ -1,0 +1,18 @@
+
+% Forward Chaining Program
+
+% Facts
+fact(a).
+fact(b).
+
+% Rules
+rule(c) :- fact(a), fact(b).
+rule(d) :- rule(c).
+rule(e) :- rule(d).
+
+% Forward Chaining
+forward :-
+    rule(X),
+    write('Derived fact: '), write(X), nl,
+    fail.
+forward.
